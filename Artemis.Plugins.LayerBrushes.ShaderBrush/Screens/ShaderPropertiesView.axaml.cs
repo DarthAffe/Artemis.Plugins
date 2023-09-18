@@ -1,6 +1,6 @@
-﻿using Avalonia.Input;
-using Avalonia.Interactivity;
+﻿using Avalonia.Interactivity;
 using Avalonia.ReactiveUI;
+using ReactiveUI;
 
 namespace Artemis.Plugins.LayerBrushes.ShaderBrush.Screens;
 
@@ -9,14 +9,14 @@ public partial class ShaderPropertiesView : ReactiveUserControl<ShaderProperties
     public ShaderPropertiesView()
     {
         InitializeComponent();
+
+        this.WhenActivated(d =>
+                           {
+                               ViewModel!.DisplayPreviewImage = DisplayPreviewImage;
+                           });
     }
 
     private void InputFinished(object? sender, RoutedEventArgs e)
-    {
-        ViewModel?.Save();
-    }
-
-    private void PointerInputFinished(object? sender, PointerCaptureLostEventArgs pointerCaptureLostEventArgs)
     {
         ViewModel?.Save();
     }

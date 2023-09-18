@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:attachedProperties="clr-namespace:Artemis.UI.Shared.AttachedProperties;assembly=Artemis.UI.Shared"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:screens="clr-namespace:Artemis.Plugins.LayerBrushes.ShaderBrush.Screens"
@@ -14,12 +13,9 @@
     <Border Grid.Row="0"
             Grid.Column="0"
             Margin="0,0,15,0"
-            Width="300"
-            Classes="card"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left">
-      <DockPanel LastChildFill="True">
-        <StackPanel DockPanel.Dock="Top">
+            Classes="card">
+      <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,*">
+        <StackPanel Grid.Row="0" Grid.Column="0">
           <Label>Width</Label>
           <controls:NumberBox Margin="5,0,5,5"
                               Value="{CompiledBinding Width}"
@@ -32,7 +28,7 @@
                               LostFocus="InputFinished" />
         </StackPanel>
 
-        <StackPanel DockPanel.Dock="Top">
+        <StackPanel Grid.Row="0" Grid.Column="1">
           <Label>Height</Label>
           <controls:NumberBox Margin="5,0,5,5"
                               Value="{CompiledBinding Height}"
@@ -45,18 +41,34 @@
                               LostFocus="InputFinished" />
         </StackPanel>
 
-        <DockPanel LastChildFill="True">
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
           <Label DockPanel.Dock="Top">Shader</Label>
-          <TextBox Text="{CompiledBinding Shader}" />
+          <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
+            <TextBox FontFamily="monospace"
+                     AcceptsReturn="True"
+                     Text="{CompiledBinding Shader}"
+                     LostFocus="InputFinished" />
+          </ScrollViewer>
         </DockPanel>
-
-      </DockPanel>
+      </Grid>
     </Border>
 
     <Border Grid.Row="0"
             Grid.Column="1"
             Classes="card">
-      <Border Margin="10" Background="Magenta" />
+      <Grid>
+        <TextBlock HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Margin="8"
+                   Text="{CompiledBinding ShaderException}" />
+        <Image Name="DisplayPreviewImage"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Source="{CompiledBinding PreviewImage}"
+               RenderOptions.BitmapInterpolationMode="LowQuality"
+               Stretch="Uniform" />
+      </Grid>
     </Border>
   </Grid>
 </UserControl>

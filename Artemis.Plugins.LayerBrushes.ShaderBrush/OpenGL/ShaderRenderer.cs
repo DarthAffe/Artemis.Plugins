@@ -81,40 +81,54 @@ void main()
 
     private void Initialize()
     {
+        Exception? exception = null;
         _openGlThread.Invoke(() =>
         {
-            _vertexArray = GL.GenVertexArray();
-            GL.BindVertexArray(_vertexArray);
+            try
+            {
+                _shader = new ShaderProgram(VERTEX_SHADER, Shader);
 
-            _vertexBuffer = GL.GenBuffer();
-            GL.FramebufferParameter(FramebufferTarget.Framebuffer, FramebufferDefaultParameter.FramebufferDefaultWidth, Width);
-            GL.FramebufferParameter(FramebufferTarget.Framebuffer, FramebufferDefaultParameter.FramebufferDefaultHeight, Height);
+                _vertexArray = GL.GenVertexArray();
+                GL.BindVertexArray(_vertexArray);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBuffer);
-            GL.BufferData(BufferTarget.ArrayBuffer, QUAD_VERTS.Length * sizeof(float), QUAD_VERTS, BufferUsageHint.StaticDraw);
+                _vertexBuffer = GL.GenBuffer();
+                GL.FramebufferParameter(FramebufferTarget.Framebuffer, FramebufferDefaultParameter.FramebufferDefaultWidth, Width);
+                GL.FramebufferParameter(FramebufferTarget.Framebuffer, FramebufferDefaultParameter.FramebufferDefaultHeight, Height);
 
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), nint.Zero);
-            GL.EnableVertexAttribArray(0);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBuffer);
+                GL.BufferData(BufferTarget.ArrayBuffer, QUAD_VERTS.Length * sizeof(float), QUAD_VERTS, BufferUsageHint.StaticDraw);
 
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), (nint)(2 + sizeof(float)));
-            GL.EnableVertexAttribArray(1);
-            GL.BindVertexArray(0);
+                GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), nint.Zero);
+                GL.EnableVertexAttribArray(0);
 
-            _framebuffer = GL.GenFramebuffer();
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, _framebuffer);
+                GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), (nint)(2 + sizeof(float)));
+                GL.EnableVertexAttribArray(1);
+                GL.BindVertexArray(0);
 
-            _texture = GL.GenTexture();
-            GL.BindTexture(TextureTarget.Texture2D, _texture);
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16f, Width, Height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, nint.Zero);
-            GL.BindTexture(TextureTarget.Texture2D, 0);
-            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, _texture, 0);
+                _framebuffer = GL.GenFramebuffer();
+                GL.BindFramebuffer(FramebufferTarget.Framebuffer, _framebuffer);
 
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
+                _texture = GL.GenTexture();
+                GL.BindTexture(TextureTarget.Texture2D, _texture);
+                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16f, Width, Height, 0, PixelFormat.Rgb,
+                              PixelType.UnsignedByte, nint.Zero);
+                GL.BindTexture(TextureTarget.Texture2D, 0);
+                GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D,
+                                        _texture, 0);
 
-            _shader = new ShaderProgram(VERTEX_SHADER, Shader);
-            _shader.Use();
-            GL.Uniform2(GL.GetUniformLocation(_shader.Handle, ShaderInputs.RESOLUTION), 1, new float[] { Width, Height });
+                GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
+
+                _shader.Use();
+                GL.Uniform2(GL.GetUniformLocation(_shader.Handle, ShaderInputs.RESOLUTION), 1, new float[] { Width, Height });
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
         });
+
+        if (exception != null)
+            throw exception;
 
         _pixelBuffer = new byte[Width * Height * 4];
     }

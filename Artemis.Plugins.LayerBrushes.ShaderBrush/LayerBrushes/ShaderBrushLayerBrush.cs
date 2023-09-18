@@ -3,6 +3,8 @@ using Artemis.Core.LayerBrushes;
 using SkiaSharp;
 using Artemis.Plugins.LayerBrushes.ShaderBrush.LayerBrushes.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.ShaderBrush.OpenGL;
+using Artemis.UI.Shared.LayerBrushes;
+using Artemis.Plugins.LayerBrushes.ShaderBrush.Screens;
 
 namespace Artemis.Plugins.LayerBrushes.ShaderBrush.LayerBrushes;
 
@@ -10,8 +12,9 @@ public class ShaderBrushLayerBrush : LayerBrush<ShaderBrushPropertyGroup>
 {
     #region Properties & Fields
 
-    private ShaderRenderService? ShaderRenderService => ShaderBootstrapper.ShaderRenderService;
+    private readonly object _shaderLock = new();
 
+    private ShaderRenderService? ShaderRenderService => ShaderBootstrapper.ShaderRenderService;
     private ShaderEntry? _shader;
 
     #endregion
@@ -27,31 +30,57 @@ public class ShaderBrushLayerBrush : LayerBrush<ShaderBrushPropertyGroup>
 
     public override void EnableLayerBrush()
     {
-        if ((_shader != null) || (ShaderRenderService == null)) return;
-
-        _shader = ShaderRenderService!.RegisterShader(Properties.Shader.Shader.CurrentValue, Properties.Shader.Width.CurrentValue, Properties.Shader.Height.CurrentValue);
+        lock (_shaderLock)
+        {
+            ConfigurationDialog = new LayerBrushConfigurationDialog<ShaderPropertiesViewModel>(1300, 650);
+            RecreateShader();
+        }
     }
 
     public override void DisableLayerBrush()
     {
-        if ((_shader == null) || (ShaderRenderService == null)) return;
+        lock (_shaderLock)
+        {
+            if ((_shader == null) || (ShaderRenderService == null)) return;
 
-        ShaderRenderService!.UnregisterShader(_shader.Value);
-        _shader = null;
+            ShaderRenderService!.UnregisterShader(_shader.Value);
+            _shader = null;
+        }
+    }
+
+    public void RecreateShader()
+    {
+        lock (_shaderLock)
+        {
+            if (_shader != null)
+                ShaderRenderService!.UnregisterShader(_shader.Value);
+
+            try
+            {
+                _shader = ShaderRenderService!.RegisterShader(Properties.Shader.Shader.CurrentValue, Properties.Shader.Width.CurrentValue, Properties.Shader.Height.CurrentValue);
+            }
+            catch
+            {
+                _shader = null;
+            }
+        }
     }
 
     public override void Update(double deltaTime) { }
 
     public override unsafe void Render(SKCanvas canvas, SKRect bounds, SKPaint paint)
     {
-        if ((_shader == null) || (ShaderRenderService == null)) return;
-
-        Span<byte> buffer = ShaderRenderService.Update(_shader.Value);
-
-        fixed (byte* img = buffer)
+        lock (_shaderLock)
         {
-            using SKImage skImage = SKImage.FromPixels(new SKImageInfo(_shader.Value.Width, _shader.Value.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), (nint)img, _shader.Value.Width * 4);
-            canvas.DrawImage(skImage, bounds, paint);
+            if ((_shader == null) || (ShaderRenderService == null)) return;
+
+            Span<byte> buffer = ShaderRenderService.Update(_shader.Value);
+
+            fixed (byte* img = buffer)
+            {
+                using SKImage skImage = SKImage.FromPixels(new SKImageInfo(_shader.Value.Width, _shader.Value.Height, SKColorType.Bgra8888, SKAlphaType.Opaque), (nint)img, _shader.Value.Width * 4);
+                canvas.DrawImage(skImage, bounds, paint);
+            }
         }
     }
 
@@ -59,10 +88,13 @@ public class ShaderBrushLayerBrush : LayerBrush<ShaderBrushPropertyGroup>
     {
         base.Dispose(disposing);
 
-        if (_shader != null)
-            ShaderRenderService!.UnregisterShader(_shader.Value);
+        lock (_shaderLock)
+        {
+            if (_shader != null)
+                ShaderRenderService!.UnregisterShader(_shader.Value);
 
-        _shader = null;
+            _shader = null;
+        }
     }
 
     #endregion

@@ -68,7 +68,17 @@ void main()
         if (_renderer.Count == 0)
             Initialize();
 
-        _renderer.Add(entry, new ShaderRenderer(_openGLThread, shader, width, height));
+        try
+        {
+            _renderer.Add(entry, new ShaderRenderer(_openGLThread, shader, width, height));
+        }
+        catch
+        {
+            if (_renderer.Count == 0)
+                Terminate();
+
+            throw;
+        }
 
         return entry;
     }
@@ -123,6 +133,8 @@ void main()
             GLFW.DestroyWindow(_window.WindowPtr);
             GLFW.Terminate();
         });
+
+        _window = null;
     }
 
     private void Dispose(bool disposing)
@@ -137,6 +149,8 @@ void main()
             catch { /**/ }
 
             try { Terminate(); } catch { /**/ }
+
+            _openGLThread.Dispose();
 
             _disposed = true;
         }
