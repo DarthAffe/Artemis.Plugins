@@ -1,0 +1,62 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:attachedProperties="clr-namespace:Artemis.UI.Shared.AttachedProperties;assembly=Artemis.UI.Shared"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:screens="clr-namespace:Artemis.Plugins.LayerBrushes.ShaderBrush.Screens"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Artemis.Plugins.LayerBrushes.ShaderBrush.Screens.ShaderPropertiesView"
+             x:DataType="screens:ShaderPropertiesViewModel">
+
+  <Grid ColumnDefinitions="*,*" Margin="15">
+    <Border Grid.Row="0"
+            Grid.Column="0"
+            Margin="0,0,15,0"
+            Width="300"
+            Classes="card"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left">
+      <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top">
+          <Label>Width</Label>
+          <controls:NumberBox Margin="5,0,5,5"
+                              Value="{CompiledBinding Width}"
+                              attachedProperties:NumberBoxAssist.SuffixText="px"
+                              HorizontalAlignment="Stretch"
+                              Minimum="0"
+                              Maximum="2048"
+                              AcceptsExpression="True"
+                              ValidationMode="InvalidInputOverwritten"
+                              LostFocus="InputFinished" />
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top">
+          <Label>Height</Label>
+          <controls:NumberBox Margin="5,0,5,5"
+                              Value="{CompiledBinding Height}"
+                              attachedProperties:NumberBoxAssist.SuffixText="px"
+                              HorizontalAlignment="Stretch"
+                              Minimum="0"
+                              Maximum="2048"
+                              AcceptsExpression="True"
+                              ValidationMode="InvalidInputOverwritten"
+                              LostFocus="InputFinished" />
+        </StackPanel>
+
+        <DockPanel LastChildFill="True">
+          <Label DockPanel.Dock="Top">Shader</Label>
+          <TextBox Text="{CompiledBinding Shader}" />
+        </DockPanel>
+
+      </DockPanel>
+    </Border>
+
+    <Border Grid.Row="0"
+            Grid.Column="1"
+            Classes="card">
+      <Border Margin="10" Background="Magenta" />
+    </Border>
+  </Grid>
+</UserControl>

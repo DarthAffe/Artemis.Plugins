@@ -1,0 +1,15 @@
+{
+    "Guid": "E7EDBE2C-3FDC-4940-AD4D-A608FCE4195C",
+    "Name": "ShaderBrush",
+    "Description": "A brush to render GLSL-shaders",
+    "Author": "Darth Affe",
+    "Website": "https://github.com/DarthAffe/Artemis.Plugins",
+    "Repository": "https://github.com/DarthAffe/Artemis.Plugins",
+    "Icon": "QuestionMark",
+    "Version": "1.0.0.0",
+    "Main": "Artemis.Plugins.LayerBrushes.ShaderBrush.dll",
+    "AutoEnableProperties": true,
+    "RequiresAdmin": false,
+    "Platforms": "Windows,Linux,OSX",
+    "Api": "1.0.0"
+}
