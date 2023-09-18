@@ -1,6 +1,8 @@
 name: Build Plugins
 
-on: [push, pull_request]
+on:  
+  push:
+    branches: [ master ]
 
 jobs:
   build:
@@ -17,4 +19,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ShaderBrush
-          path: /Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net7.0/publish
+          path: Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net7.0/publish
