@@ -1,0 +1,20 @@
+name: Build Plugins
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Clone Plugins
+        uses: actions/checkout@v3
+
+      - name: Build Plugins
+        run: dotnet publish -c Release Artemis.Plugins.DarthAffe.sln
+
+      - name: Upload ShaderBrush
+        uses: actions/upload-artifact@v3
+        with:
+          name: ShaderBrush
+          path: /Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net7.0/publish
