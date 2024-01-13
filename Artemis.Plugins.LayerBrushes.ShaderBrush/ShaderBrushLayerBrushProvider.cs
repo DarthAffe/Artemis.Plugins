@@ -9,7 +9,7 @@ public class ShaderBrushLayerBrushProvider : LayerBrushProvider
 
     public override void Enable()
     {
-        RegisterLayerBrushDescriptor<ShaderBrushLayerBrush>("Shader Brush", "Renders GLSL shaders", "QuestionMark");
+        RegisterLayerBrushDescriptor<ShaderBrushLayerBrush>("Shader Brush", "Renders GLSL shaders", "React");
     }
 
     public override void Disable()
