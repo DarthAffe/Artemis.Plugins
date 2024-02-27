@@ -26,4 +26,4 @@ jobs:
 
       - name: Upload
         if: github.ref == 'refs/heads/master'
-        run: artemis-plugin-uploader upload-all --pat ${{ secrets.WORKSHOP_PAT }} --folder Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net8.0/publish
+        run: artemis-plugin-uploader upload-all --pat ${{ secrets.WORKSHOP_PAT }} --folder Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net8.0/
