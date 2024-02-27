@@ -6,10 +6,10 @@
     "Website": "https://github.com/DarthAffe/Artemis.Plugins",
     "Repository": "https://github.com/DarthAffe/Artemis.Plugins",
     "Icon": "React",
-    "Version": "1.0.0.0",
+    "Version": "1.0.0.1",
     "Main": "Artemis.Plugins.LayerBrushes.ShaderBrush.dll",
     "AutoEnableProperties": true,
     "RequiresAdmin": false,
     "Platforms": "Windows,Linux,OSX",
-    "Api": "1.0.1"
+    "Api": "1.0.0"
 }
