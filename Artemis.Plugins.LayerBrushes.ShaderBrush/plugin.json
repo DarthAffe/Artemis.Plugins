@@ -11,5 +11,5 @@
     "AutoEnableProperties": true,
     "RequiresAdmin": false,
     "Platforms": "Windows,Linux,OSX",
-    "Api": "1.0.0"
+    "Api": "1.0.1"
 }
