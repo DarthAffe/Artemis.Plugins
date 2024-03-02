@@ -110,11 +110,9 @@ void main()
 
                 _texture = GL.GenTexture();
                 GL.BindTexture(TextureTarget.Texture2D, _texture);
-                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16f, Width, Height, 0, PixelFormat.Rgb,
-                              PixelType.UnsignedByte, nint.Zero);
+                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16f, Width, Height, 0, PixelFormat.Rgb, PixelType.UnsignedByte, nint.Zero);
                 GL.BindTexture(TextureTarget.Texture2D, 0);
-                GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D,
-                                        _texture, 0);
+                GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, _texture, 0);
 
                 GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
 

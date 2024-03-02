@@ -134,6 +134,7 @@ void main()
             GLFW.Terminate();
         });
 
+        _window.Dispose();
         _window = null;
     }
 

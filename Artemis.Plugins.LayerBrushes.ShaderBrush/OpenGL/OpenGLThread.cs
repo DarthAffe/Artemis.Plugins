@@ -13,7 +13,7 @@ internal class OpenGLThread : IDisposable
     private readonly CancellationTokenSource _cancellationTokenSource = new();
     private readonly CancellationToken _cancellationToken;
 
-    private readonly BlockingCollection<(Action action, ManualResetEventSlim waitHandle)> _actions = new();
+    private readonly BlockingCollection<(Action action, ManualResetEventSlim waitHandle)> _actions = [];
 
     #endregion
 
