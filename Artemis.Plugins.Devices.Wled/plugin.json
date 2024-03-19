@@ -1,0 +1,15 @@
+﻿{
+  "Guid": "F8129569-93FC-44CF-BAFE-02BCBA4CA9DC",
+  "Name": "WLED Devices",
+  "Description": "Allows Artemis to control lighting on WLED devices",
+  "Author": "DarthAffe",
+  "Website": "https://github.com/DarthAffe/Artemis.Plugins",
+  "Repository": "https://github.com/DarthAffe/Artemis.Plugins",
+  "Icon": "Wifi",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.Plugins.Devices.Wled.dll",
+  "AutoEnableFeatures": true,
+  "RequiresAdmin": false,
+  "Platforms": "Windows,Linux,OSX",
+  "Api": "1.0.0"
+}
