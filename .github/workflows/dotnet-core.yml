@@ -21,9 +21,19 @@ jobs:
           name: ShaderBrush
           path: Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net8.0/publish
 
+      - name: Upload Wled Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Wled
+          path: Artemis.Plugins.Devices.Wled/bin/x64/Release/net8.0/publish
+
       - name: Install Plugin Uploader
         run: dotnet tool install ArtemisRGB.Tools.PluginUploader --global
 
       - name: Upload ShaderBrush
         if: github.ref == 'refs/heads/master'
         run: artemis-plugin-uploader upload --pat ${{ secrets.WORKSHOP_PAT }} --folder Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net8.0/publish
+
+      - name: Upload Wled
+        if: github.ref == 'refs/heads/master'
+        run: artemis-plugin-uploader upload --pat ${{ secrets.WORKSHOP_PAT }} --folder Artemis.Plugins.Devices.Wled/bin/x64/Release/net8.0/publish

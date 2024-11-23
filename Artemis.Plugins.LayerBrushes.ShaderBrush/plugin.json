@@ -6,7 +6,7 @@
     "Website": "https://github.com/DarthAffe/Artemis.Plugins",
     "Repository": "https://github.com/DarthAffe/Artemis.Plugins",
     "Icon": "React",
-    "Version": "1.0.0.4",
+    "Version": "1.0.0.5",
     "Main": "Artemis.Plugins.LayerBrushes.ShaderBrush.dll",
     "AutoEnableProperties": true,
     "RequiresAdmin": false,

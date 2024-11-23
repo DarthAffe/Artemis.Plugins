@@ -6,7 +6,7 @@
   "Website": "https://github.com/DarthAffe/Artemis.Plugins",
   "Repository": "https://github.com/DarthAffe/Artemis.Plugins",
   "Icon": "Wifi",
-  "Version": "1.0.0.0",
+  "Version": "1.0.0.1",
   "Main": "Artemis.Plugins.Devices.Wled.dll",
   "AutoEnableFeatures": true,
   "RequiresAdmin": false,
