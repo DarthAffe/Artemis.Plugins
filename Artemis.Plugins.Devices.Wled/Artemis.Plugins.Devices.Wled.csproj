@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2024.315.3" />
+    <PackageReference Include="ArtemisRGB.UI.Shared" IncludeAssets="compile;build;buildTransitive" Version="1.2024.1114.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RGB.NET.Devices.Wled" Version="2.1.0" />
+    <PackageReference Include="RGB.NET.Devices.Wled" Version="3.0.0-prerelease.3" />
     <PackageReference Include="Tmds.MDns" Version="0.8.0" />
   </ItemGroup>
 </Project>
