@@ -1,5 +1,5 @@
 ﻿using Avalonia.Interactivity;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 using ReactiveUI;
 
 namespace Artemis.Plugins.LayerBrushes.ShaderBrush.Screens;

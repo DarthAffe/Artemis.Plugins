@@ -6,10 +6,10 @@
   "Website": "https://github.com/DarthAffe/Artemis.Plugins",
   "Repository": "https://github.com/DarthAffe/Artemis.Plugins",
   "Icon": "Wifi",
-  "Version": "1.0.0.1",
+  "Version": "2.0.0.0",
   "Main": "Artemis.Plugins.Devices.Wled.dll",
   "AutoEnableFeatures": true,
   "RequiresAdmin": false,
   "Platforms": "Windows,Linux,OSX",
-  "Api": "1.0.0"
+  "MinimumVersion": "1.2025.1222.3"
 }

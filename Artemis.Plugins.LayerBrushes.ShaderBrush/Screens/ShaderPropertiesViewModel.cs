@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
 using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
+using System.Threading;
 using Artemis.Plugins.LayerBrushes.ShaderBrush.LayerBrushes;
 using Artemis.Plugins.LayerBrushes.ShaderBrush.LayerBrushes.PropertyGroups;
 using Artemis.Plugins.LayerBrushes.ShaderBrush.OpenGL;
@@ -18,7 +20,7 @@ public class ShaderPropertiesViewModel : BrushConfigurationViewModel
 {
     #region Properties & Fields
 
-    private readonly object _previewLock = new();
+    private readonly Lock _previewLock = new();
 
     private ShaderRenderService? ShaderRenderService => ShaderBootstrapper.ShaderRenderService;
     private ShaderEntry? _previewShader;

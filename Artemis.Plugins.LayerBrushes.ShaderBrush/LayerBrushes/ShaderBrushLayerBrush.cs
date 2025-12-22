@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Artemis.Core.LayerBrushes;
 using SkiaSharp;
 using Artemis.Plugins.LayerBrushes.ShaderBrush.LayerBrushes.PropertyGroups;
@@ -12,7 +13,7 @@ public class ShaderBrushLayerBrush : LayerBrush<ShaderBrushPropertyGroup>
 {
     #region Properties & Fields
 
-    private readonly object _shaderLock = new();
+    private readonly Lock _shaderLock = new();
 
     private ShaderRenderService? ShaderRenderService => ShaderBootstrapper.ShaderRenderService;
     private ShaderEntry? _shader;

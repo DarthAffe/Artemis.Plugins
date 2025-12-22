@@ -1,5 +1,5 @@
 using Artemis.Plugins.Devices.Wled.ViewModels;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Artemis.Plugins.Devices.Wled.Views;
 
