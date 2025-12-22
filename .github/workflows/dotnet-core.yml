@@ -16,13 +16,13 @@ jobs:
         run: dotnet publish -c Release Artemis.Plugins.DarthAffe.sln
 
       - name: Upload ShaderBrush Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ShaderBrush
           path: Artemis.Plugins.LayerBrushes.ShaderBrush/bin/x64/Release/net10.0/publish
 
       - name: Upload Wled Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Wled
           path: Artemis.Plugins.Devices.Wled/bin/x64/Release/net10.0/publish
