@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Artemis.Core;
 using Artemis.Core.DeviceProviders;
 using Artemis.Core.Services;
@@ -55,7 +57,26 @@ public class WledDeviceProvider(ILogger logger, IDeviceService deviceService, Pl
         }
 
         foreach ((string hostname, string manufacturer, string model) in devices)
+        {
+            if (!string.IsNullOrWhiteSpace(hostname))
+            {
+                try{
+                    var pingSender = new Ping();
+                    var reply = pingSender.Send(hostname, 100);
+                    if (reply.Status != IPStatus.Success)
+                    {
+                        logger.Warning("WLED device {hostname} is unreachable", hostname);
+                        continue;
+                    }
+                }
+                catch (Exception e)
+                {
+                    logger.Debug(e, "WLED device {hostname} is unreachable", hostname);
+                    continue;
+                }
+            }
             RgbDeviceProvider.AddDeviceDefinition(new WledDeviceDefinition(hostname, manufacturer ?? "Artemis", model ?? "WLED Device"));
+        }
 
         deviceService.AddDeviceProvider(this);
     }
